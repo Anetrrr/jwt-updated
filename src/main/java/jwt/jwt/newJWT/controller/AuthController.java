@@ -37,9 +37,6 @@ public class AuthController {
 
         //check if the user exists
         return null;
-
-
-
     }
 
 
