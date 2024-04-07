@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/auth")
 
 @RequiredArgsConstructor
 public class AuthController {
@@ -34,9 +34,8 @@ public class AuthController {
     }
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate (@RequestBody AuthenticateRequest authenticateRequest){
-
-        //check if the user exists
-        return null;
+       AuthenticationResponse authResponse = authService.authenticate(authenticateRequest);
+       return ResponseEntity.ok(authResponse);
     }
 
 

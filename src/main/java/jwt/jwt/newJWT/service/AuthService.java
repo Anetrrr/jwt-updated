@@ -35,9 +35,9 @@ public class AuthService {
       return AuthenticationResponse.builder().accessToken(jwtToken).build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticateRequest authenticateRequest){
+    public AuthenticationResponse authenticate (AuthenticateRequest authenticateRequest){
 
-        //1. validate request(validate whether username/password is correct) = UserNamePasswordAuthen ticationToken
+        //1. validate request(validate whether username/password is correct) = UserNamePassword AuthenticationToken
         //2. check if user is present in db
         //3. authenticationProvider -> DaoAuthenticationProvider (Inject) = check applicationConfig
         //4. need to authenticate using authentication manager = check applicationConfig

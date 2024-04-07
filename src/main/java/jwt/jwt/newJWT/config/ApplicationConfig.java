@@ -32,8 +32,9 @@ public class ApplicationConfig  {
 
 
     }
+    @Bean
 //to verify if user is present in the database or not.
-    private UserDetailsService userDetailsService() {
+    public UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("user not found"));
     }
