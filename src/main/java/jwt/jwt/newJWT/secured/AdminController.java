@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/admin")
-@PreAuthorize("hasRole('Admin')")
 public class AdminController {
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public String getAdmin() {
         return "Secured Endpoint :: GET - Admin controller";

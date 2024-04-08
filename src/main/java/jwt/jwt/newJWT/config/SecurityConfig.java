@@ -29,13 +29,18 @@ public class SecurityConfig {
                     .authorizeHttpRequests(req ->
                             req.requestMatchers("/api/v1/auth/*")
                                     .permitAll()
-                                    .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MEMBER.name())
+//                                 .requestMatchers("/api/v1/admin").hasAnyRole("ADMIN", "MEMBER")
+//                                    .requestMatchers("/api/v1/admin").hasRole("ADMIN")
+                                    .requestMatchers("/api/v1/admin").authenticated()
+//                                    .requestMatchers("/api/v1/admin").permitAll()
+                                    .requestMatchers("/api/v1/management/**").authenticated()
                                     .anyRequest()
                                     .authenticated())
         .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                             .authenticationProvider(authenticationProvider)
                             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                     .build();
+
         }
 
 }

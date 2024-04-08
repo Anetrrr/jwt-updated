@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
@@ -23,6 +24,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
@@ -32,6 +34,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
           @NonNull HttpServletRequest request,
            @NonNull HttpServletResponse response,
            @NonNull FilterChain filterChain) throws ServletException, IOException {
+        log.info("Extract username");
 
         // Verify if it is whitelisted path and if yes, don't do anything
         // Verify whether request has Authorization header, and it has Bearer in it
@@ -77,9 +80,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     //if valid, set to securityContext holder
 
     //for whitelisted endpoints -should not filter
-    @Override
-    protected boolean shouldNotFilter(
-            @NonNull HttpServletRequest request) throws ServletException {
-        return request.getServletPath().contains("/api/v1");
-    }
+//    @Override
+//    protected boolean shouldNotFilter(
+//            @NonNull HttpServletRequest request) throws ServletException {
+//      log.info("Should not filter");
+//        return request.getServletPath().contains("/api/v1");
+//    }
 }

@@ -23,12 +23,13 @@ import java.util.function.Function;
 public class JwtService {
     private static final String SECRET = "01bf77d73a414646b3cf8735bab3dac13bc1310998725f2212ec837de6b661b0";
     public String generateToken(UserDetails user){
+        log.info("generate token");
         return Jwts.builder()
                 .setSubject(user.getUsername())
                 //adding claims to the token
                 .claim("authorities", populateAuthorities(user.getAuthorities()))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 864000))
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -48,6 +49,7 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
+        log.info("Extract claims");
         return Jwts
                 .parser()
                 .setSigningKey(getSigningKey())
@@ -57,10 +59,12 @@ public class JwtService {
     }
 
     public String extractUsername(String token){
+        log.info("Extract username");
         return extractClaim(token, Claims::getSubject);
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        log.info("Extract claim");
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
